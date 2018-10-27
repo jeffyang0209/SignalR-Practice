@@ -12,9 +12,9 @@ namespace SignalR.Hubs
         // 另一種ReName的方式
         // [HubName("Hello")]
         public void helloSignalR()
-        { 
-            // 執行Cleint端的JS函式名稱
-            Clients.All.hello();
+        {
+            // 執行Cleint端的helloHubProxy.clien 函式
+            Clients.All.helloClient("Hi");
         }
     }
 }

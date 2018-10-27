@@ -13,6 +13,11 @@
         // $.connection.hello對應到類別Hello，並存成變數命名為helloHubProxy
         var helloHubProxy = $.connection.hello;
 
+        // 客戶端接收helloClient事件時的處理函式
+        helloHubProxy.client.helloClient = function (str) {
+            alert(str);
+        }
+
         $.connection.hub.start().done(function () {
             // 對應到伺服器端hello類別的helloSignalR函式
             // 可在 Hello之中 的 helloSignalR 函式，下中斷點觀察
