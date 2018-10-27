@@ -11,7 +11,7 @@ namespace SignalR.Hubs
     {
         // 另一種ReName的方式
         // [HubName("Hello")]
-        public void HelloWord()
+        public void helloSignalR()
         { 
             // 執行Cleint端的JS函式名稱
             Clients.All.hello();
