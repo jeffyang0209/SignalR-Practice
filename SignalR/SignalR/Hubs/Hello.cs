@@ -16,5 +16,15 @@ namespace SignalR.Hubs
             // 執行Cleint端的helloHubProxy.clien 函式
             Clients.All.helloClient("Hi");
         }
+
+        public void JoinRoom(string name)
+        {
+            this.Groups.Add(this.Context.ConnectionId, name);
+        }
+
+        public void RemoveRoom(string name)
+        {
+            this.Groups.Remove(this.Context.ConnectionId, name);
+        }
     }
 }
