@@ -12,10 +12,14 @@
     <script src="Scripts/vue.min.js"></script>
 
     <div id="app">
-        <input id="userName" placeholder="userName" v-model="userName" />
-        <input id="message" placeholder="message" v-model="message" />
+        <input placeholder="room" v-model="room" />
+        <input placeholder="userName" v-model="userName" />
+        <input placeholder="message" v-model="message" />
+        <input placeholder="roomName" v-model="roomName" />
 
-        <button id="sendButton" v-on:click="sendMessage">send</button>
+        <button v-on:click="sendMessage">send</button>
+        <button v-on:click="joinRoom">joinRoom</button>
+        <button v-on:click="leaveRoom">leaveRoom</button>
         <div id="container" v-for="m in messages">{{m.userName}} ：{{m.message}}</div>
     </div>
 
@@ -25,6 +29,8 @@
             data: {
                 userName: '',
                 message: '',
+                room: '',
+                roomName:'',
                 messages: [
                     { userName: 'Jeff', message: 'Hi' },
                     { userName: 'Ricky', message: '123' }
@@ -38,7 +44,23 @@
                 },
                 // 傳送訊息到伺服器端
                 sendMessage: function () {
-                    this.chatHubProxy.server.sendMessage(this.userName, this.message);
+                    if (this.roomName === '') {
+                        // 全體聊天
+                        this.chatHubProxy.server.sendMessage(this.userName, this.message);
+                    } else {
+                        // 群聊
+                        this.chatHubProxy.server.sendMessageToRoom(this.userName, this.message, this.roomName);
+                    }
+                },
+                // 加入房間
+                joinRoom: function () {
+                    console.log(this.chatHubProxy);
+                    this.chatHubProxy.server.joinRoom(this.roomName);
+                    console.log(2);
+                },
+                // 離開房間
+                leaveRoom: function () {
+                    this.chatHubProxy.server.leaveRoom(this.roomName);
                 }
             },
             created() {
